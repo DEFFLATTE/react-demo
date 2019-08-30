@@ -2,7 +2,7 @@
  * Created by zhouhangfeng on 2019/8/26.
  */
 import React, {Component} from 'react';
-import '../assets/css/index.css';
+import '../assets/css/index.scss';
 import storage from '../model/storage'
 class TodoList extends Component {
     constructor(props) {

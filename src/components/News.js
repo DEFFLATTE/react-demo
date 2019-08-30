@@ -3,8 +3,11 @@
  */
 import React from 'react';
 import ferrari from '../assets/images/ferrari.jpeg';
-import '../assets/css/index.css';
-import Header from './Header'
+import '../assets/css/index.scss';
+import Header from './Header';
+import Footer from './Footer';
+import { Link } from "react-router-dom";
+import { Calendar } from 'antd';
 class News extends React.Component{
     constructor(props){
         super(props);//用于父子组件传值  建议大家都这样写 super调用父组件的实例this
@@ -12,51 +15,66 @@ class News extends React.Component{
     //    定义数据
 
         this.state={
-            msg:'新闻',
-            list:['1111111','2222222','333333333'],
-            list2:[<h2 key='1'>我是一个h2</h2>,<h2 key="2">我是一个h2</h2>],
-            list3:[
-                {title:'新闻1111'},
-                {title:'新闻2222'},
-                {title:'新闻3333'},
-                {title:'新闻4444'},
+            title:'新闻组件',
+            msg:'我是新闻组件的msg',
+            list:[
+                {
+                    aid:'1',
+                    title:'我是新闻1111'
+                },
+                {
+                    aid:'2',
+                    title:'我是新闻2222'
+                },
+                {
+                    aid:'3',
+                    title:'我是新闻3333'
+                },
+                {
+                    aid:'4',
+                    title:'我是新闻4444'
+                },
+
             ]
         }
     }
-    render(){
-
-        let listResult = this.state.list.map(function (value,key) {
-            return <li key={key}>{value}</li>
+    onPanelChange=(value, mode) => {
+    console.log(value, mode);
+        }
+    run = () => {
+        alert('我是父组件的run方法')
+        }
+        getData = ()=> {
+        alert(this.state.title+'getData')
+        }
+    getChildData = (result) => {
+        this.setState({
+            msg:result
         })
-
+    }
+    //父组件主动调用子组件的方法
+    getFooter = () => {
+        // alert(this.refs.footer.state.msg)
+        this.refs.footer.run()
+    }
+    render(){
         return(
             <div className="news">
-                <Header title="新闻头部"/>
-                <h2>{this.state.msg}</h2>
-
-                <img src={ferrari} alt=""/>
-                <img src={require('../assets/images/ferrari.jpeg')} alt=""/>
-                <img src="http://img3.imgtn.bdimg.com/it/u=2326788584,2231322671&fm=26&gp=0.jpg" alt=""/>
-
-                <hr/>
-
-                {this.state.list2}
-                <hr/>
-                <ul>
-                    {listResult}
-                </ul>
-                <hr/>
+                我是新闻组件
                 <ul>
                     {
-                        this.state.list3.map(function (value,key) {
-                            return (
-                                <li key={key}>{value.title}</li>
-                            )
+                        this.state.list.map((value,key)=>{
+                           return (
+                               <li key={key}>
+                                   <Link to={`/content/${value.aid}`}>{value.title}</Link>
+                               </li>
+                           )
                         })
                     }
+
+
                 </ul>
-
-
+                <Calendar onPanelChange={this.onPanelChange.bind(this)} />
             </div>
         )
     }

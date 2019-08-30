@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css';
 import App from './App';
 //加快react运行速度的一个文件
 import * as serviceWorker from './serviceWorker';
